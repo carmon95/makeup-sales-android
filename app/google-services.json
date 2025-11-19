@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "756220101398",
+    "project_id": "makeupsales-ecfce",
+    "storage_bucket": "makeupsales-ecfce.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756220101398:android:88fd3db2ddc8a27dc80637",
+        "android_client_info": {
+          "package_name": "com.carlos.makeupsales"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbtoEFkM0vDIDC0pmtbUjCuXy31HY7Mg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
