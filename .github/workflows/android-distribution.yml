@@ -1,0 +1,39 @@
+name: Android CI - Build APK & Firebase Distribution
+
+on:
+  push:
+    branches:
+      - master   # si tu rama principal se llama master, cambia esto a: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'   # si tu proyecto usa otra, luego lo cambiamos
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug
+
+      - name: List APK outputs (debug)
+        run: ls -R app/build/outputs/
+
+      - name: Upload APK to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: "testers"
+          file: app/build/outputs/apk/debug/app-debug.apk
+          releaseNotes: "Build automático GitHub - commit ${{ github.sha }}"
+          testers: ${{ secrets.TESTER_EMAIL }}
