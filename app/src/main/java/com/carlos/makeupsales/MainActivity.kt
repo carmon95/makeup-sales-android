@@ -5,6 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import android.os.Build
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.ui.unit.dp
@@ -47,6 +50,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MakeupSalesTheme {
+                RequestNotificationPermissionOnce()
                 AppRoot()
             }
         }
@@ -58,6 +62,20 @@ sealed class BottomNavItem(val route: String, val label: String, val icon: Int) 
     object Orders : BottomNavItem("orders", "Orders", android.R.drawable.ic_menu_agenda)
     object Customers : BottomNavItem("customers", "Customers", android.R.drawable.ic_menu_manage)
     object Products : BottomNavItem("products", "Products", android.R.drawable.ic_menu_sort_by_size)
+}
+
+@Composable
+fun RequestNotificationPermissionOnce() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val launcher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.RequestPermission(),
+            onResult = { /* podés loguear o ignorar */ }
+        )
+
+        LaunchedEffect(Unit) {
+            launcher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
 }
 
 @Composable

@@ -20,6 +20,9 @@ interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertProduct(product: ProductEntity): Long
 
+    @Query("SELECT * FROM products WHERE stock <= :threshold")
+    suspend fun getLowStockProducts(threshold: Int): List<ProductEntity>
+
     @Update
     suspend fun updateProduct(product: ProductEntity)
 

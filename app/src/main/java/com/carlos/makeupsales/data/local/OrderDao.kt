@@ -36,6 +36,9 @@ interface OrderDao {
     @Query("UPDATE products SET stock = stock - :qty WHERE id = :productId")
     suspend fun decreaseProductStock(productId: Long, qty: Int)
 
+    @Query("SELECT COUNT(*) FROM orders WHERE status = :status")
+    suspend fun countByStatus(status: OrderStatus): Int
+
     @Query("DELETE FROM order_items WHERE orderId = :orderId")
     suspend fun deleteOrderItemsByOrderId(orderId: Long)
 

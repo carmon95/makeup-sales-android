@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.text)
     // Para cargar imágenes desde Uri/String en Compose
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 
     val composeBom = platform("androidx.compose:compose-bom:2024.04.01")
     implementation(composeBom)
